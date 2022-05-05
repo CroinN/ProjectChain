@@ -44,17 +44,20 @@ async def try_password(message : types.message):
     if(stage==0):
         passwordCheck=PasswordCheck(message)
         if(passwordCheck==0):   
-            await message.reply("true password write /wish")
+            await message.reply("True password /wish")
             stage=1
         else:
             if(passwordCheck==1):
-                await message.reply("wrong password try again")
+                await message.reply("Wrong password try again")
             if(passwordCheck==2):
-                await message.reply("already used id")
+                await message.reply("Already used id")
     if(stage==2):
+        await message.reply("New Password")
         await message.reply(NewWish(message))
         stage=0
         
+
+
 
 
 
@@ -67,12 +70,18 @@ def NewWish(msg):
     File=open("current_info.txt","w")
     newPassword=GetNewPassword()
     arr[1]=newPassword+"\n"
-
     File.writelines(arr)
+
     File=open("users.txt","r")
     arr=File.readlines()
     arr.__iadd__(str(msg.chat.id)+"\n")
     File=open("users.txt","w")
+    File.writelines(arr)
+
+    File=open("wishes.txt","r")
+    arr=File.readlines()
+    arr.__iadd__(str(msg.text)+"\n")
+    File=open("wishes.txt","w")
     File.writelines(arr)
 
     return newPassword
