@@ -11,3 +11,14 @@ Test
 None
 1422964806
 Taza namak
+Cr0inN
+1041593601
+Cr0inN
+1041593601
+b'\xd5\xa1\xd5\xbd\xd5\xa4\xd5\xa1\xd5\xa4'
+Cr0inN
+1041593601
+b''
+Cr0inN
+1041593601
+b'\xd5\xa1\xd5\xa4\xd5\xbd\xd5\xa4'

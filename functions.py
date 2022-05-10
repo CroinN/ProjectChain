@@ -22,7 +22,7 @@ def NewMessage(msg):
 
     File=open("fulldata.txt","r")
     arr=File.readlines()
-    arr.__iadd__(str(msg.chat.username)+"\n"+str(msg.chat.id)+"\n"+str(msg.text)+"\n")
+    arr.__iadd__(str(msg.chat.username)+"\n"+str(msg.chat.id)+"\n"+msgtxt+"\n")
     File=open("fulldata.txt","w")
     File.writelines(arr)
 
