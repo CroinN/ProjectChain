@@ -3,7 +3,7 @@ import random
 
 
 
-def NewWish(msg):
+def NewMessage(msg):
     msgtxt=msg.text
 
     File=open("current_info.txt","r")
@@ -20,10 +20,10 @@ def NewWish(msg):
     File=open("users.txt","w")
     File.writelines(arr)
 
-    File=open("wishes.txt","r")
+    File=open("fulldata.txt","r")
     arr=File.readlines()
-    arr.__iadd__(str(msg.text)+"\n")
-    File=open("wishes.txt","w")
+    arr.__iadd__(str(msg.chat.username)+"\n"+str(msg.chat.id)+"\n"+str(msg.text)+"\n")
+    File=open("fulldata.txt","w")
     File.writelines(arr)
 
     return newPassword

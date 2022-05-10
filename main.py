@@ -1,6 +1,8 @@
 from email import message
+import fileinput
 from inspect import _empty
 from logging import debug
+from msilib.schema import File
 from pickle import FALSE
 from random import random
 import this
@@ -26,31 +28,43 @@ dp=Dispatcher(bot)
 async def send_welcome(message : types.message):
     await message.reply("Password please :)")
 
-@dp.message_handler(commands=['wish'])
-async def wish(message : types.message):
+@dp.message_handler(commands=['msg'])
+async def msg(message : types.message):
     global stage
     if(stage==1):
         File=open("current_info.txt","r")
         arr=File.readlines()
         if(arr[2]==str(message.chat.id)):
-            wish=arr[0]
-            if(wish==""):
-                print("no wish")
+            msg=arr[0]
+            if(msg==""):
+                print("no message")
             else:
-                await message.reply(wish)
+                await message.reply(msg)
             stage=2
         else:
             await message.reply("Bot is being used by other user")
     else:
-        await message.reply("Password please :)")        
+        await message.reply("Password please :)")     
+
+
+@dp.message_handler(commands=['data'])
+async def get_data(message : types.message):
+
+    if(functions.CheckWhiteList(message.chat.id)):
+        data=open("fulldata.txt","r")
+        arr=data.readlines()
+        await message.reply('\n'.join(arr))
+        #await bot.send_document(message.chat.id,data)
+   
 
 @dp.message_handler()
-async def try_password(message : types.message):
+async def noCommand(message : types.message):
     global stage 
+
     if(stage==0):
         passwordCheck=functions.PasswordCheck(message)
         if(passwordCheck==0):   
-            await message.reply("True password /wish")
+            await message.reply("True password /msg")
             stage=1
         else:
             if(passwordCheck==1):
@@ -59,9 +73,10 @@ async def try_password(message : types.message):
                 await message.reply("Already used id")
     if(stage==2):
         await message.reply("New Password")
-        await message.reply(functions.NewWish(message))
+        await message.reply(functions.NewMessage(message))
         stage=0
-        
+
+
 
 async def Message(msg):
     await bot.send_message(msg)
